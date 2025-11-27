@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#e41a1c", "font": {"color": "#000000"}, "id": 20350, "label": "20350", "physics": false, "shape": "dot", "size": 10.287619815392143, "title": "User 20350\nFollowers: 4,063,940\nEngagement (comments+reposts): 231\nIn-degree (people who engaged): 217\nPageRank: 0.0008\nModel score: 1.000\nOfficial influencer: False", "x": -148.21788950679297, "y": 997.7561051998746}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 267035, "label": "267035", "physics": false, "shape": "dot", "size": 10.085110335711974, "title": "User 267035\nFollowers: 163,446\nEngagement (comments+reposts): 71\nIn-degree (people who engaged): 71\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": 838.7569805940623, "y": 492.83844622335494}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 259680, "label": "259680", "physics": false, "shape": "dot", "size": 10.167727561862561, "title": "User 259680\nFollowers: 224,124\nEngagement (comments+reposts): 130\nIn-degree (people who engaged): 120\nPageRank: 0.0005\nModel score: 1.000\nOfficial influencer: False", "x": -703.229466477606, "y": -724.810083717726}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 259683, "label": "259683", "physics": false, "shape": "dot", "size": 10.927571893611258, "title": "User 259683\nFollowers: 250,594\nEngagement (comments+reposts): 737\nIn-degree (people who engaged): 610\nPageRank: 0.0026\nModel score: 1.000\nOfficial influencer: False", "x": -33.539592725870456, "y": -502.65441472855576}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 259928, "label": "259928", "physics": false, "shape": "dot", "size": 12.735129530415751, "title": "User 259928\nFollowers: 942,696\nEngagement (comments+reposts): 5,220\nIn-degree (people who engaged): 2,948\nPageRank: 0.0077\nModel score: 1.000\nOfficial influencer: False", "x": 505.19369722889394, "y": 372.44393822973217}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 259966, "label": "259966", "physics": false, "shape": "dot", "size": 10.202595847690334, "title": "User 259966\nFollowers: 1,205,732\nEngagement (comments+reposts): 450\nIn-degree (people who engaged): 399\nPageRank: 0.0006\nModel score: 1.000\nOfficial influencer: False", "x": -743.0725129269255, "y": 746.5802428513525}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 261102, "label": "261102", "physics": false, "shape": "dot", "size": 10.25939365150772, "title": "User 261102\nFollowers: 302,345\nEngagement (comments+reposts): 140\nIn-degree (people who engaged): 136\nPageRank: 0.0008\nModel score: 1.000\nOfficial influencer: False", "x": -223.3455872462099, "y": -494.14272532058067}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 262002, "label": "262002", "physics": false, "shape": "dot", "size": 10.038554910481412, "title": "User 262002\nFollowers: 200\nEngagement (comments+reposts): 62\nIn-degree (people who engaged): 32\nPageRank: 0.0001\nModel score: 1.000\nOfficial influencer: False", "x": -929.033550633843, "y": -312.17569802952835}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 264849, "label": "264849", "physics": false, "shape": "dot", "size": 10.075495688456336, "title": "User 264849\nFollowers: 248,256\nEngagement (comments+reposts): 48\nIn-degree (people who engaged): 46\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": -665.0201600308466, "y": 546.8593617253608}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 265513, "label": "265513", "physics": false, "shape": "dot", "size": 10.121143421968066, "title": "User 265513\nFollowers: 10,985\nEngagement (comments+reposts): 98\nIn-degree (people who engaged): 74\nPageRank: 0.0004\nModel score: 1.000\nOfficial influencer: False", "x": 363.5956230603196, "y": -859.0967255055464}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 266220, "label": "266220", "physics": false, "shape": "dot", "size": 11.074159347791019, "title": "User 266220\nFollowers: 342,269\nEngagement (comments+reposts): 666\nIn-degree (people who engaged): 631\nPageRank: 0.0030\nModel score: 1.000\nOfficial influencer: False", "x": -29.098559928271108, "y": -982.427606724973}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 266240, "label": "266240", "physics": false, "shape": "dot", "size": 10.020728185151135, "title": "User 266240\nFollowers: 134\nEngagement (comments+reposts): 102\nIn-degree (people who engaged): 89\nPageRank: 0.0001\nModel score: 1.000\nOfficial influencer: False", "x": -48.51863473276196, "y": -873.8817045189925}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 268803, "label": "268803", "physics": false, "shape": "dot", "size": 10.106701529071433, "title": "User 268803\nFollowers: 60,230\nEngagement (comments+reposts): 54\nIn-degree (people who engaged): 52\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": 85.93056718823594, "y": 964.6176592304635}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 259298, "label": "259298", "physics": false, "shape": "dot", "size": 10.680130982936998, "title": "User 259298\nFollowers: 257,273\nEngagement (comments+reposts): 1,616\nIn-degree (people who engaged): 743\nPageRank: 0.0019\nModel score: 1.000\nOfficial influencer: False", "x": -915.4076427090228, "y": -266.9329217281951}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 269515, "label": "269515", "physics": false, "shape": "dot", "size": 10.212009976393146, "title": "User 269515\nFollowers: 21,884\nEngagement (comments+reposts): 135\nIn-degree (people who engaged): 126\nPageRank: 0.0006\nModel score: 1.000\nOfficial influencer: False", "x": 280.5095242698953, "y": -974.3636542961725}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 269656, "label": "269656", "physics": false, "shape": "dot", "size": 10.098190365962994, "title": "User 269656\nFollowers: 1,005,877\nEngagement (comments+reposts): 77\nIn-degree (people who engaged): 71\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": 519.7411033255026, "y": -831.7647649877986}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 269701, "label": "269701", "physics": false, "shape": "dot", "size": 10.928687763659887, "title": "User 269701\nFollowers: 243\nEngagement (comments+reposts): 1,317\nIn-degree (people who engaged): 1,287\nPageRank: 0.0026\nModel score: 1.000\nOfficial influencer: False", "x": -494.40552168359335, "y": 914.2676545658691}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 271008, "label": "271008", "physics": false, "shape": "dot", "size": 10.032408629639534, "title": "User 271008\nFollowers: 361,193\nEngagement (comments+reposts): 48\nIn-degree (people who engaged): 48\nPageRank: 0.0001\nModel score: 1.000\nOfficial influencer: False", "x": -35.835611461130384, "y": 688.8678956460215}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 275909, "label": "275909", "physics": false, "shape": "dot", "size": 10.061772979001159, "title": "User 275909\nFollowers: 357,494\nEngagement (comments+reposts): 72\nIn-degree (people who engaged): 68\nPageRank: 0.0002\nModel score: 1.000\nOfficial influencer: False", "x": -394.01288971850664, "y": -465.7883886164554}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 276136, "label": "276136", "physics": false, "shape": "dot", "size": 10.102043775612508, "title": "User 276136\nFollowers: 5,495,038\nEngagement (comments+reposts): 266\nIn-degree (people who engaged): 252\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": 755.5234923928597, "y": -578.2897011290705}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 276664, "label": "276664", "physics": false, "shape": "dot", "size": 10.273278222018062, "title": "User 276664\nFollowers: 1,353,667\nEngagement (comments+reposts): 164\nIn-degree (people who engaged): 157\nPageRank: 0.0008\nModel score: 1.000\nOfficial influencer: False", "x": 385.77168084434845, "y": -369.19677706203726}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 276725, "label": "276725", "physics": false, "shape": "dot", "size": 20.481028773737897, "title": "User 276725\nFollowers: 1,955,155\nEngagement (comments+reposts): 6,248\nIn-degree (people who engaged): 5,620\nPageRank: 0.0294\nModel score: 1.000\nOfficial influencer: False", "x": -865.3111899425858, "y": 574.6376318577088}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 282507, "label": "282507", "physics": false, "shape": "dot", "size": 10.156099862886945, "title": "User 282507\nFollowers: 3,819,297\nEngagement (comments+reposts): 174\nIn-degree (people who engaged): 167\nPageRank: 0.0005\nModel score: 1.000\nOfficial influencer: False", "x": -575.984005282934, "y": 769.2023416833059}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 282892, "label": "282892", "physics": false, "shape": "dot", "size": 10.086138405670239, "title": "User 282892\nFollowers: 276,314\nEngagement (comments+reposts): 102\nIn-degree (people who engaged): 101\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": -10.926197033153956, "y": 884.5774813578199}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 259671, "label": "259671", "physics": false, "shape": "dot", "size": 11.211172732107293, "title": "User 259671\nFollowers: 222,001\nEngagement (comments+reposts): 980\nIn-degree (people who engaged): 747\nPageRank: 0.0034\nModel score: 1.000\nOfficial influencer: False", "x": -151.1964487767592, "y": -957.7046433813302}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 243714, "label": "243714", "physics": false, "shape": "dot", "size": 39.999999642611364, "title": "User 243714\nFollowers: 531,853\nEngagement (comments+reposts): 18,077\nIn-degree (people who engaged): 16,120\nPageRank: 0.0840\nModel score: 1.000\nOfficial influencer: False", "x": 958.8595266231729, "y": 397.96655779645147}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 226167, "label": "226167", "physics": false, "shape": "dot", "size": 11.008124947590904, "title": "User 226167\nFollowers: 137,006\nEngagement (comments+reposts): 765\nIn-degree (people who engaged): 619\nPageRank: 0.0029\nModel score: 1.000\nOfficial influencer: False", "x": 513.0285382218954, "y": 902.8305259202203}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 233632, "label": "233632", "physics": false, "shape": "dot", "size": 10.858868623045225, "title": "User 233632\nFollowers: 272,439\nEngagement (comments+reposts): 1,825\nIn-degree (people who engaged): 718\nPageRank: 0.0024\nModel score: 1.000\nOfficial influencer: False", "x": 606.763181505566, "y": 393.695581024912}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 226927, "label": "226927", "physics": false, "shape": "dot", "size": 18.976547652231083, "title": "User 226927\nFollowers: 136,643\nEngagement (comments+reposts): 6,132\nIn-degree (people who engaged): 5,542\nPageRank: 0.0252\nModel score: 1.000\nOfficial influencer: False", "x": -885.341592795348, "y": -490.8121492089543}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 232172, "label": "232172", "physics": false, "shape": "dot", "size": 10.244498263950595, "title": "User 232172\nFollowers: 168,617\nEngagement (comments+reposts): 139\nIn-degree (people who engaged): 111\nPageRank: 0.0007\nModel score: 1.000\nOfficial influencer: False", "x": -993.2478265441698, "y": -31.252238535816343}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 232274, "label": "232274", "physics": false, "shape": "dot", "size": 10.953507307791769, "title": "User 232274\nFollowers: 288,936\nEngagement (comments+reposts): 1,414\nIn-degree (people who engaged): 667\nPageRank: 0.0027\nModel score: 1.000\nOfficial influencer: False", "x": -310.1106184380909, "y": 457.32211073654827}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 232703, "label": "232703", "physics": false, "shape": "dot", "size": 11.049703142368257, "title": "User 232703\nFollowers: 419,690\nEngagement (comments+reposts): 665\nIn-degree (people who engaged): 609\nPageRank: 0.0030\nModel score: 1.000\nOfficial influencer: False", "x": 917.6948378878849, "y": -387.74023473996044}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 232728, "label": "232728", "physics": false, "shape": "dot", "size": 10.078057950118456, "title": "User 232728\nFollowers: 178,865\nEngagement (comments+reposts): 55\nIn-degree (people who engaged): 51\nPageRank: 0.0003\nModel score: 1.000\nOfficial influencer: False", "x": -891.9171672580211, "y": 292.72132803015927}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 233150, "label": "233150", "physics": false, "shape": "dot", "size": 11.409006629025123, "title": "User 233150\nFollowers: 137,002\nEngagement (comments+reposts): 1,090\nIn-degree (people who engaged): 754\nPageRank: 0.0040\nModel score: 1.000\nOfficial influencer: False", "x": -236.51594070714688, "y": 601.7915341172626}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 233158, "label": "233158", "physics": false, "shape": "dot", "size": 10.797495081296416, "title": "User 233158\nFollowers: 263,083\nEngagement (comments+reposts): 695\nIn-degree (people who engaged): 580\nPageRank: 0.0023\nModel score: 1.000\nOfficial influencer: False", "x": -137.4698086819084, "y": 604.4150871401108}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 233293, "label": "233293", "physics": false, "shape": "dot", "size": 10.122202764382477, "title": "User 233293\nFollowers: 278,069\nEngagement (comments+reposts): 73\nIn-degree (people who engaged): 71\nPageRank: 0.0004\nModel score: 1.000\nOfficial influencer: False", "x": 667.5305414424492, "y": -747.1759157224221}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 233623, "label": "233623", "physics": false, "shape": "dot", "size": 11.185030983841031, "title": "User 233623\nFollowers: 517,969\nEngagement (comments+reposts): 2,527\nIn-degree (people who engaged): 1,168\nPageRank: 0.0034\nModel score: 1.000\nOfficial influencer: True", "x": -950.1670563143626, "y": 395.63364508890623}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 233624, "label": "233624", "physics": false, "shape": "dot", "size": 13.123160271228954, "title": "User 233624\nFollowers: 1,604,054\nEngagement (comments+reposts): 3,455\nIn-degree (people who engaged): 2,711\nPageRank: 0.0088\nModel score: 1.000\nOfficial influencer: False", "x": 514.8811875063298, "y": 499.2072275355774}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 233633, "label": "233633", "physics": false, "shape": "dot", "size": 10.435784043187711, "title": "User 233633\nFollowers: 154,250\nEngagement (comments+reposts): 1,073\nIn-degree (people who engaged): 506\nPageRank: 0.0013\nModel score: 1.000\nOfficial influencer: False", "x": 108.04164262399163, "y": -502.0344127359325}, {"color": "#e41a1c", "font": {"color": "#000000"}, "id": 241899, "label": "241899", "physics": false, "shape": "dot", "size": 10.058080271687489, "title": "User 241899\nFollowers: 525\nEngagement (comments+reposts): 165\nIn-degree (people who engaged): 162\nPageRank: 0.0002\nModel score: 1.000\nOfficial influencer: False", "x": -294.47923398523375, "y": -934.141546671344}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 233634, "label": "233634", "physics": false, "shape": "dot", "size": 10.68836484689814, "title": "User 233634\nFollowers: 108,617\nEngagement (comments+reposts): 751\nIn-degree (people who engaged): 528\nPageRank: 0.0020\nModel score: 1.000\nOfficial influencer: False", "x": 299.3588339745854, "y": -488.49218005483044}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 233635, "label": "233635", "physics": false, "shape": "dot", "size": 10.120581450805224, "title": "User 233635\nFollowers: 241,897\nEngagement (comments+reposts): 104\nIn-degree (people who engaged): 91\nPageRank: 0.0004\nModel score: 1.000\nOfficial influencer: False", "x": 363.3296777650681, "y": 257.66325783672875}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 233640, "label": "233640", "physics": false, "shape": "dot", "size": 11.719505741076729, "title": "User 233640\nFollowers: 447,592\nEngagement (comments+reposts): 1,701\nIn-degree (people who engaged): 1,308\nPageRank: 0.0049\nModel score: 1.000\nOfficial influencer: False", "x": -214.40121278411152, "y": 474.66055192017325}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 233795, "label": "233795", "physics": false, "shape": "dot", "size": 11.22680202176346, "title": "User 233795\nFollowers: 724,571\nEngagement (comments+reposts): 660\nIn-degree (people who engaged): 582\nPageRank: 0.0035\nModel score: 1.000\nOfficial influencer: False", "x": 734.2245337482, "y": 632.1649453917742}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 234713, "label": "234713", "physics": false, "shape": "dot", "size": 10.364294451046566, "title": "User 234713\nFollowers: 1,168,454\nEngagement (comments+reposts): 359\nIn-degree (people who engaged): 337\nPageRank: 0.0011\nModel score: 1.000\nOfficial influencer: False", "x": 991.5333428918298, "y": -159.99872356461356}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 238244, "label": "238244", "physics": false, "shape": "dot", "size": 10.31483303118697, "title": "User 238244\nFollowers: 144,047\nEngagement (comments+reposts): 315\nIn-degree (people who engaged): 230\nPageRank: 0.0009\nModel score: 1.000\nOfficial influencer: False", "x": -970.8039564776135, "y": 146.484915856002}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 238577, "label": "238577", "physics": false, "shape": "dot", "size": 10.074441272760456, "title": "User 238577\nFollowers: 278,470\nEngagement (comments+reposts): 74\nIn-degree (people who engaged): 70\nPageRank: 0.0002\nModel score: 1.000\nOfficial influencer: False", "x": 941.3153411498847, "y": 252.48261222006136}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 239869, "label": "239869", "physics": false, "shape": "dot", "size": 10.06362168373969, "title": "User 239869\nFollowers: 37,746\nEngagement (comments+reposts): 134\nIn-degree (people who engaged): 127\nPageRank: 0.0002\nModel score: 1.000\nOfficial influencer: False", "x": 972.9988266239944, "y": -15.319152101259805}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 239958, "label": "239958", "physics": false, "shape": "dot", "size": 10.60397250736759, "title": "User 239958\nFollowers: 466,954\nEngagement (comments+reposts): 344\nIn-degree (people who engaged): 323\nPageRank: 0.0017\nModel score: 1.000\nOfficial influencer: False", "x": 882.6702439419342, "y": -237.34026286281423}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 241308, "label": "241308", "physics": false, "shape": "dot", "size": 11.11369726133374, "title": "User 241308\nFollowers: 10,692,525\nEngagement (comments+reposts): 631\nIn-degree (people who engaged): 590\nPageRank: 0.0032\nModel score: 1.000\nOfficial influencer: False", "x": -824.5755624047752, "y": -632.4932404331702}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 283014, "label": "283014", "physics": false, "shape": "dot", "size": 10.480501347332732, "title": "User 283014\nFollowers: 146,296\nEngagement (comments+reposts): 172\nIn-degree (people who engaged): 161\nPageRank: 0.0014\nModel score: 1.000\nOfficial influencer: False", "x": -525.0693846374043, "y": -403.50317691799006}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 284431, "label": "284431", "physics": false, "shape": "dot", "size": 10.066150386589802, "title": "User 284431\nFollowers: 1,593,881\nEngagement (comments+reposts): 201\nIn-degree (people who engaged): 115\nPageRank: 0.0002\nModel score: 1.000\nOfficial influencer: False", "x": 122.18690276770606, "y": -847.4902754359352}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 285395, "label": "285395", "physics": false, "shape": "dot", "size": 10.601474348807477, "title": "User 285395\nFollowers: 1,066,395\nEngagement (comments+reposts): 335\nIn-degree (people who engaged): 312\nPageRank: 0.0017\nModel score: 1.000\nOfficial influencer: False", "x": 426.9816011065863, "y": -554.396405696954}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 316629, "label": "316629", "physics": false, "shape": "dot", "size": 10.016681490931246, "title": "User 316629\nFollowers: 163\nEngagement (comments+reposts): 83\nIn-degree (people who engaged): 76\nPageRank: 0.0001\nModel score: 1.000\nOfficial influencer: False", "x": -321.11278990501296, "y": 908.6738301185463}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 306608, "label": "306608", "physics": false, "shape": "dot", "size": 10.0, "title": "User 306608\nFollowers: 162\nEngagement (comments+reposts): 40\nIn-degree (people who engaged): 36\nPageRank: 0.0000\nModel score: 1.000\nOfficial influencer: False", "x": -456.2991109353357, "y": -907.8853945301756}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 307419, "label": "307419", "physics": false, "shape": "dot", "size": 10.05049422045348, "title": "User 307419\nFollowers: 1,615\nEngagement (comments+reposts): 212\nIn-degree (people who engaged): 153\nPageRank: 0.0002\nModel score: 1.000\nOfficial influencer: False", "x": -575.5267128322274, "y": -805.28281181872}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 307427, "label": "307427", "physics": false, "shape": "dot", "size": 10.001893048225366, "title": "User 307427\nFollowers: 114\nEngagement (comments+reposts): 53\nIn-degree (people who engaged): 39\nPageRank: 0.0000\nModel score: 1.000\nOfficial influencer: False", "x": 659.570356421187, "y": 787.7696799089586}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 307428, "label": "307428", "physics": false, "shape": "dot", "size": 10.036932456226953, "title": "User 307428\nFollowers: 2,789\nEngagement (comments+reposts): 146\nIn-degree (people who engaged): 123\nPageRank: 0.0001\nModel score: 1.000\nOfficial influencer: False", "x": 304.1434970026306, "y": 950.3313611913866}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 309714, "label": "309714", "physics": false, "shape": "dot", "size": 24.340742352668343, "title": "User 309714\nFollowers: 80,021\nEngagement (comments+reposts): 7,964\nIn-degree (people who engaged): 7,772\nPageRank: 0.0402\nModel score: 1.000\nOfficial influencer: False", "x": -166.94184659143866, "y": 308.1230532307361}, {"color": "#fd8d3c", "font": {"color": "#000000"}, "id": 316623, "label": "316623", "physics": false, "shape": "dot", "size": 10.13679594172629, "title": "User 316623\nFollowers: 2,889\nEngagement (comments+reposts): 394\nIn-degree (people who engaged): 307\nPageRank: 0.0004\nModel score: 1.000\nOfficial influencer: False", "x": 1000.0, "y": 122.00136714247347}]);
+                  edges = new vis.DataSet([{"from": 259683, "to": 233633, "value": 2}, {"from": 259683, "to": 261102, "value": 1}, {"from": 259928, "to": 233632, "value": 2}, {"from": 259928, "to": 233624, "value": 1}, {"from": 259928, "to": 233635, "value": 1}, {"from": 261102, "to": 275909, "value": 1}, {"from": 262002, "to": 259298, "value": 7}, {"from": 266220, "to": 266240, "value": 2}, {"from": 271008, "to": 233158, "value": 1}, {"from": 275909, "to": 283014, "value": 1}, {"from": 276664, "to": 233634, "value": 1}, {"from": 232274, "to": 233640, "value": 2}, {"from": 233150, "to": 233640, "value": 1}, {"from": 233150, "to": 233158, "value": 1}, {"from": 233158, "to": 233640, "value": 1}, {"from": 233633, "to": 233634, "value": 1}, {"from": 233634, "to": 285395, "value": 1}, {"from": 233640, "to": 309714, "value": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": false,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
