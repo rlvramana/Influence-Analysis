@@ -1,0 +1,21 @@
+# Core data / math
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.11.4
+
+# Graph + ML
+networkx==3.3
+scikit-learn==1.4.2
+xgboost==2.0.3
+
+# Viz
+matplotlib==3.8.4
+seaborn==0.13.2
+
+# IO + utils
+pyarrow==15.0.2
+tqdm==4.66.4
+python-dotenv==1.0.1
+
+# Notebooks (if you prefer)
+jupyterlab==4.2.0

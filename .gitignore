@@ -1,2 +1,57 @@
+# --- OS / IDE ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Packaging / build
+.Python
+build/
+dist/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Test / tooling caches
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Logs / local secrets
+logs/
+.env
+
+# --- Project data (keep big/raw data out of git) ---
+data/raw/
+data/interim/
+data/processed/
 data/raw/SAGraph/
-data/raw/SAGraph/
+*.graph.anon
+*.graphml
+*.parquet
+*.feather
+*.arrow
+*.csv
+
+# Keep empty folders in repo when needed
+!data/**/.gitkeep
+!reports/**/.gitkeep
