@@ -43,14 +43,21 @@ logs/
 # --- Project data (keep big/raw data out of git) ---
 data/raw/
 data/interim/
-data/processed/
 data/raw/SAGraph/
+
+# ignore everything under processed by default
+data/processed/*
+
+# but keep final outputs needed by the app
+!data/processed/model_final_scores_all_campaigns.parquet
+!data/processed/model_metrics_per_campaign.parquet
+!data/processed/recommended_final_top50_per_campaign.parquet
+!data/processed/recommended_top50_per_campaign.parquet
+
 *.graph.anon
 *.graphml
-*.parquet
 *.feather
 *.arrow
-*.csv
 
 # Keep empty folders in repo when needed
 !data/**/.gitkeep
