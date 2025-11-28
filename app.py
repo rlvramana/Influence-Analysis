@@ -130,11 +130,9 @@ For each campaign we always build a top-50 list.
 
     df_c = scores_all[scores_all["product_name"] == campaign].copy()
     n_accounts = len(df_c)
-    n_high = int(df_c["label_high_engagement"].sum())
 
-    c1, c2 = st.columns(2)
+    c1 = st.columns(1)[0]
     c1.metric("Accounts in this campaign", f"{n_accounts:,}")
-    c2.metric("Accounts in the high-engagement group (for training)", f"{n_high:,}")
 
 
 # ------------------ Recommendations tab ------------------
@@ -161,23 +159,16 @@ with tab_recs:
         display_df["official_influencer"] = (
             display_df["official_influencer"].fillna(False).astype(bool)
         )
-        display_df["is_in_top20pct_engagement"] = (
-            display_df["is_in_top20pct_engagement"].fillna(False).astype(bool)
-        )
 
         display_df["Official influencer?"] = display_df["official_influencer"].map(
             {True: "Yes", False: "No"}
         )
-        display_df["In top 20% by engagement?"] = display_df[
-            "is_in_top20pct_engagement"
-        ].map({True: "Yes", False: "No"})
 
-        # Select and rename columns for display
+        # Select and rename columns for display (no top-20% column)
         cols_order = [
             "rank_by_model_score",
             "user_id",
             "Official influencer?",
-            "In top 20% by engagement?",
             "followers",
             "engagement_comments_plus_reposts",
             "people_who_engaged",
@@ -211,7 +202,6 @@ with tab_recs:
 Each row is an account in this campaign. Key columns:
 
 - **Official influencer?** – whether this account was in the brand’s original influencer list.  
-- **In top 20% by engagement?** – whether this account is in the top 20% by engagement (comments + reposts) for this campaign.  
 - **Total engagement (comments + reposts)** – total number of comments and reposts on this account’s posts about this product.  
 - **Number of unique people who engaged** – how many different accounts interacted with this account’s posts.  
 - **Network influence score** – how central this account is in the campaign’s conversation network (higher means more central).  
@@ -238,7 +228,7 @@ with tab_graph:
 This view shows how accounts are connected in the campaign’s conversation:
 
 - Each circle is an account.  
-- Larger circles sit more at the centre of the conversation.  
+- Larger circles have higher network influence (they are more central in the conversation graph).  
 - Red = top 10 recommended accounts.  
 - Blue = official influencers.  
 - Orange = other active accounts.  
