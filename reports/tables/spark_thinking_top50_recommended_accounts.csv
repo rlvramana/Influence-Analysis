@@ -1,4 +1,4 @@
-product_name,rank_in_recommendation_list,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
+product_name,rank_by_model_score,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
 spark_thinking,1,84952,0,2007199,4258,1635,0.004339877272628792
 spark_thinking,2,71739,0,269963,5326,4484,0.014461850324498298
 spark_thinking,3,104884,0,2347987,4080,2551,0.00935135901518317

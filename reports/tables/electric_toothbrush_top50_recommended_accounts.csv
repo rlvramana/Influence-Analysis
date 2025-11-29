@@ -1,4 +1,4 @@
-product_name,rank_in_recommendation_list,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
+product_name,rank_by_model_score,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
 electric_toothbrush,1,185,0,16155400,5988,3497,0.012578241852601623
 electric_toothbrush,2,148762,1,2187839,6344,2481,0.009232487911024599
 electric_toothbrush,3,147719,0,3851880,5633,2564,0.011750521466886987

@@ -1,4 +1,4 @@
-product_name,rank_in_recommendation_list,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
+product_name,rank_by_model_score,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
 abc_reading,1,84769,0,953194,9290,5676,0.012913851574449329
 abc_reading,2,185,0,16153761,8325,4700,0.009839790058932558
 abc_reading,3,84700,0,385320,10213,2712,0.008042495939473546

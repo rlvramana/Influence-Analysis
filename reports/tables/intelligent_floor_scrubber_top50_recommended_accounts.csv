@@ -1,4 +1,4 @@
-product_name,rank_in_recommendation_list,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
+product_name,rank_by_model_score,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
 intelligent_floor_scrubber,1,185,0,16155412,6096,3750,0.007472652640924752
 intelligent_floor_scrubber,2,71739,0,270344,2122,1643,0.004472935688379994
 intelligent_floor_scrubber,3,83090,0,1812313,10616,1131,0.0029580235796500356

@@ -1,4 +1,4 @@
-product_name,rank_in_recommendation_list,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
+product_name,rank_by_model_score,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
 ruby_face_cream,1,695,0,564434,8168,7963,0.06317379519798626
 ruby_face_cream,2,8724,1,787985,7107,6167,0.03996491348339084
 ruby_face_cream,3,46723,0,171538,1684,1591,0.00851440712878031

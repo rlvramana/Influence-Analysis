@@ -1,4 +1,4 @@
-product_name,rank_in_recommendation_list,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
+product_name,rank_by_model_score,user_id,official_influencer,followers,engagement_comments_plus_reposts,people_who_engaged,pagerank_centrality
 supor_boosted_showerhead,1,226927,0,136643,6132,5542,0.025158448911657957
 supor_boosted_showerhead,2,243714,0,531853,18077,16120,0.0839836322826112
 supor_boosted_showerhead,3,276725,0,1955155,6248,5620,0.029368099062892467
