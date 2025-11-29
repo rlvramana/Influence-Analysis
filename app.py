@@ -63,12 +63,21 @@ def load_top_table(campaign: str, top_k: int) -> pd.DataFrame | None:
     """
     Load the per-campaign top-50 table and return the top_k rows
     sorted by model rank.
+
+    If the CSV does not contain 'rank_by_model_score', we create it
+    on the fly based on the current row order (1..N).
     """
     csv_path = TABLE_DIR / f"{campaign}_top50_recommended_accounts.csv"
     if not csv_path.exists():
         return None
 
     df = pd.read_csv(csv_path)
+
+    # Make sure we have a rank column with the name the app expects
+    if "rank_by_model_score" not in df.columns:
+        # Create a simple 1..N ranking from the current order
+        df.insert(1, "rank_by_model_score", range(1, len(df) + 1))
+
     df = df.sort_values("rank_by_model_score").head(top_k).reset_index(drop=True)
     return df
 
